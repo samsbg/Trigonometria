@@ -17,7 +17,46 @@ trig.geometry("900x500")
 trig.configure(bg="#DEF0D9")
 
 def segundaPagina():
+
     titulo.grid(column=3, row=0, columnspan=15, rowspan=2, sticky="WNSE")
+
+    instrucciones = tk.Label(
+        text="Poner la respuesta en fracción", font=(None, 20), bg="#DEF0D9")
+    instrucciones.grid(column=5, row=3, columnspan=8)
+
+    triangulos = (ImageTk.PhotoImage(Image.open(os.path.abspath(
+        "Triangulo1.png")).resize((300, 300), Image.ANTIALIAS)), ImageTk.PhotoImage(Image.open(os.path.abspath(
+            "Triangulo2.png")).resize((300, 300), Image.ANTIALIAS)))
+
+    trianguloLabel = tk.Label(trig, bg = "#DEF0D9")
+    trianguloLabel.grid(column=6, row=5, columnspan=6, rowspan=6)
+
+    xlabel = tk.Label(font=(None, 20), bg="#DEF0D9")
+    xlabel.grid(column=5, row=7, rowspan=2, sticky = "e")
+
+    ylabel = tk.Label(font=(None, 20), bg="#DEF0D9")
+    ylabel.grid(column=8, row=11, columnspan=2)
+
+    zlabel = tk.Label(font=(None, 20), bg="#DEF0D9")
+    zlabel.grid(column=12, row=7, rowspan=2, sticky = "w")
+
+    def nuevoEjercicio():
+        trianguloInt = randint(0,1)
+        ladosInt = randint(2,7)
+        trigInt = randint(0,2)
+        
+        trianguloLabel.configure(image=triangulos[trianguloInt])
+        trianguloLabel.image = triangulos[trianguloInt]
+        
+        y = (ladosInt*2)+1
+        z = (y**2-1)//2
+        x = (y**2+1)//2
+
+        xlabel.configure(text=x)
+        ylabel.configure(text=y)
+        zlabel.configure(text=z)
+
+    nuevoEjercicio()
 
     for y in range(15):
         trig.grid_rowconfigure(y, weight=1)
@@ -40,6 +79,7 @@ def primeraPagina():
         zLabel.grid_forget()
         ejemploLabel.grid_forget()
         ejemploEntry.grid_forget()
+        siguiente.grid_forget()
 
         segundaPagina()
     
@@ -84,10 +124,12 @@ def primeraPagina():
         trig.grid_columnconfigure(x, weight=1)
 
 
+titulo = tk.Label(justify=LEFT, text="Trigonometría",
+                  bg="#5BB346", fg="white", font=(None, 20))
 siguiente = tk.Button(text=" 🡆 ", bg="#5BB346", fg="white", font=(None, 20))
+
 regreso = tk.Button(text=" 🡄 ", bg="#5BB346", fg="white", font=(None, 20))
 regreso.grid(column=0, row=0, columnspan=3, rowspan=2, sticky="NSWE")
-titulo = tk.Label(justify = LEFT, text="Trigonometría", bg="#5BB346", fg="white", font=(None, 20))
 
 primeraPagina()
 

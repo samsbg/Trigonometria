@@ -30,6 +30,11 @@ def segundaPagina():
 
     trianguloLabel = tk.Label(trig, bg = "#DEF0D9")
     trianguloLabel.grid(column=6, row=5, columnspan=6, rowspan=6)
+    
+    trigList = ("sen(A) =", "cos(A) =", "tan(A) =")
+
+    triglabel = tk.Label(font=(None, 20), bg="#DEF0D9")
+    triglabel.grid(column=6, row=13, columnspan=3, sticky="e")
 
     xlabel = tk.Label(font=(None, 20), bg="#DEF0D9")
     xlabel.grid(column=5, row=7, rowspan=2, sticky = "e")
@@ -40,7 +45,15 @@ def segundaPagina():
     zlabel = tk.Label(font=(None, 20), bg="#DEF0D9")
     zlabel.grid(column=12, row=7, rowspan=2, sticky = "w")
 
+    respuesta = Entry(trig, width=10, font=(None,20))
+    respuesta.grid(column=9, row=13, columnspan=3, sticky="w")
+
+    verifica = tk.Button(text="Verificar", bg="#5BB346",
+                         fg="white", font=(None, 20))
+    verifica.grid(column=14, row=13, columnspan=3, pady=10)
+
     def nuevoEjercicio():
+
         trianguloInt = randint(0,1)
         ladosInt = randint(2,7)
         trigInt = randint(0,2)
@@ -56,6 +69,41 @@ def segundaPagina():
         ylabel.configure(text=y)
         zlabel.configure(text=z)
 
+        triglabel.configure(text=trigList[trigInt])
+
+        def respuestaString():
+            if(trianguloInt == 0):
+                if(trigInt == 0): 
+                    return("{}/{}".format(z,x))
+                elif(trigInt == 1):
+                    return("{}/{}".format(y, x))
+                elif(trigInt == 2):
+                    return("{}/{}".format(z, y))
+            elif(trianguloInt == 1):
+                if(trigInt == 0):
+                    return("{}/{}".format(y, x))
+                elif(trigInt == 1):
+                    return("{}/{}".format(z, x))
+                elif(trigInt == 2):
+                    return("{}/{}".format(y, z))
+        
+        def versiguiente():
+            respuesta.delete(0, "end")
+            respuesta.configure(bg="white")
+            verifica.configure(text="Verificar",command=verificar)
+            nuevoEjercicio()
+        
+        def verificar():
+            
+            if(respuesta.get() == respuestaString()):
+                respuesta.configure(bg="green")
+                verifica.configure(text="Siguiente", command=versiguiente)
+            else:
+                respuesta.configure(bg="red")
+                verifica.configure(text="Siguiente", command=versiguiente)
+
+        verifica.configure(command = verificar)
+        
     nuevoEjercicio()
 
     for y in range(15):

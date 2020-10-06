@@ -1,7 +1,7 @@
 #Autor: Samantha Bautista
 #Matricula: A01284462
 #Campus: Monterrey
-#Fecha: 
+#Fecha: 02 de octubre de 2020
 #Actividad: Proyecto final PISA: trigonometria
 
 from tkinter import *
@@ -13,7 +13,7 @@ import os
 trig = tk.Tk()
 trig.title("Trogonometría")
 trig.geometry("900x500")
-#trig.resizable(width=False, height=False)
+trig.resizable(width=False, height=False)
 trig.configure(bg="#DEF0D9")
 
 def segundaPagina():
@@ -51,6 +51,20 @@ def segundaPagina():
     verifica = tk.Button(text="Verificar", bg="#5BB346",
                          fg="white", font=(None, 20))
     verifica.grid(column=14, row=13, columnspan=3, pady=10)
+
+    def regresarSegundaPagina():
+        instrucciones.grid_forget()
+        trianguloLabel.grid_forget()
+        triglabel.grid_forget()
+        xlabel.grid_forget()
+        ylabel.grid_forget()
+        zlabel.grid_forget()
+        respuesta.grid_forget()
+        verifica.grid_forget()
+
+        primeraPagina()
+    
+    regreso.configure(command=regresarSegundaPagina)
 
     def nuevoEjercicio():
 
@@ -115,6 +129,7 @@ def primeraPagina():
 
     def regresar():
         print("Pagina principal")
+        trig.destroy()
 
     regreso.configure(command=regresar)
 
